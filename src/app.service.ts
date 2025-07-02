@@ -7,9 +7,7 @@ export class AppService {
  
 
   async createLog(data: Logs): Promise<string> {
-    const account: string = 'odinstgaccount2';
-    const accountKey: string = 'dWfJlxyiUUP8O/uX4oYG+OZpCJ7W7VWLB19Cj94waR98t/Hhp4Kp7yRZzlVuXpJ4/iVgScieosTm+AStx56BCA==';
-    const tableName: string = 'OdinAppLogs';
+  
 
     const credential = new AzureNamedKeyCredential(account, accountKey);
     const client = new TableClient(`https://${account}.table.core.windows.net`, tableName, credential);
