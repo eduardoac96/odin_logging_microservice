@@ -7,7 +7,9 @@ export class AppService {
  
 
   async createLog(data: Logs): Promise<string> {
-  
+    const account: string = process.env.ACCOUNT_NAME!;
+    const accountKey: string = process.env.ACCOUNT_KEY!;
+    const tableName: string = process.env.TABLE_NAME!;
 
     const credential = new AzureNamedKeyCredential(account, accountKey);
     const client = new TableClient(`https://${account}.table.core.windows.net`, tableName, credential);
@@ -18,7 +20,6 @@ export class AppService {
       message: data.message,
       stackTrace: data.stackTrace,
       level: data.level,
-      timestamp: new Date().toISOString(),
     };
     try {
       await client.createEntity(testEntity);
