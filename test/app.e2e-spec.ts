@@ -1,0 +1,37 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
+import * as request from 'supertest';
+import { App } from 'supertest/types';
+import { AppModule } from './../src/app.module';
+
+describe('AppController (e2e)', () => {
+  let app: INestApplication<App>;
+
+  beforeEach(async () => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
+    }).compile();
+
+    app = moduleFixture.createNestApplication();
+    await app.init();
+  });
+
+  it('/ (GET)', () => {
+    return request(app.getHttpServer())
+      .get('/')
+      .expect(200)
+      .expect('Hello World!');
+  });
+
+  it('/create-log (POST)', () => {
+    return request(app.getHttpServer())
+      .post('/create-log')
+      .send({
+        message: 'Prueba desde Jest',
+        stackTrace: 'JEST.ts',
+        level: 'INFO',
+      })
+      .expect(201)
+      .expect('Log created successfully');
+  });
+});
