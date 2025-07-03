@@ -5,12 +5,12 @@ WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY package*.json ./
-RUN npm install --production
+RUN npm install
 
 # Copy source files
 COPY . .
 
-# Build NestJS
+# Build NestJSs
 RUN npm run build
 
 # Expose port (match your app.listen() port)
