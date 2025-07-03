@@ -12,7 +12,23 @@ export class AppController {
   }
 
   @Post('create-log')
-  async createLog(@Body() data: Logs): Promise<string> {
-    return await this.appService.createLog(data);
+  async createLog(@Body() data: Logs) {
+
+
+    try {
+          const response: string = await this.appService.createLog(data);   
+          
+          return {
+              message: 'Log created successfully',
+              success: true,
+            }; 
+    } catch (error) {
+      return {
+              message: 'Failed to create log. ' + error?.message,
+              success: false,
+            };
+    }
+
+          
   }
 }
